@@ -1,5 +1,9 @@
 import streamlit as st
 
+def wide_space_default():
+    st.set_page_config(layout='wide')
+wide_space_default()
+
 st.title('CUNY Essentials Bulletin')
 st.text('Welcome to the CUNY Essentials Bulletin! \nHere you will find the resources needed to contact help and document your feelings!')
 st.text('In this site there are two main pages:')
