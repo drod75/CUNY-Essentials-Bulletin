@@ -1,7 +1,7 @@
 import streamlit as st
 
 st.title('CUNY Essentials Bulletin')
-st.img('gh spaces\CUNY-Essentials-Bulletin\img\cuny-name-logo-1.webp')
+st.image('gh spaces\CUNY-Essentials-Bulletin\img\cuny-name-logo-1.webp')
 st.text('Welcome to the CUNY Essentials Bulletin! \nHere you will find the resources needed to contact help and document your feelings!')
 st.text('In this site there are two main pages:')
 st.markdown('* __Journal__ where you can document how you feel')
