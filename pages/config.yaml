@@ -7,7 +7,7 @@ credentials:
     dr:
       email: drodriguez1443@gmail.com
       failed_login_attempts: 0
-      logged_in: true
+      logged_in: false
       name: dr
       password: $2b$12$qAunDAyHq3D0MSIHdgcFHOhQZrwszIkf09bMED2uv7rcvV9Jkg.CW
     drodriguez:
