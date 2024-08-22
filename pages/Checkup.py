@@ -1,15 +1,20 @@
 import streamlit as st
+import pandas as pd
+import os
 
 #access text file step 1: account checking
 if not(st.session_state.get('authentication_status')):
     st.markdown('# Please Login to use this feature')
 else:
     if 'counters' not in st.session_state:
+        #read checkup values, auto set to 0 for new accounts in authentication
+        checkup_account_data = pd.read_csv('pages\checkup.csv')
+        account_read = checkup_account_data.loc[(checkup_account_data['account-name'] == st.session_state['name']) & (checkup_account_data['account-username'] == st.session_state['username'])]
         st.session_state.counters = {
-            'happy': 0,
-            'stress': 0,
-            'anxiety': 0,
-            'depressed': 0
+            'happy': int(account_read['happy-count']),
+            'stress': int(account_read['stress-count']),
+            'anxiety': int(account_read['anxiety-count']),
+            'depressed': int(account_read['depressed-count'])
         }
     if 'question_visible' not in st.session_state:
         st.session_state.question_visible = True
@@ -39,31 +44,47 @@ else:
     st.title('Personalized Care Setup')
 
     #User Preferences
-    goals = st.multiselect(
-        'What are your mental health goals?',
+    goals = st.selectbox(
+        'What is your mental health goal?',
         ['Reducing stress', 'Improving sleep', 'Managing anxiety', 'Enhancing focus']
     )
-
-    activities = st.multiselect(
-        'Which activities do you prefer?',
+    activity = st.selectbox(
+        'Which activity do you prefer?',
         ['Meditation', 'Physical exercise', 'Breathing exercises']
     )
 
-    time_commitment = st.slider(
-        'How much time can you spend daily?',
-        min_value=5, max_value=60, step=5
-    )
-
     if st.button('Save Preferences'):
-        st.session_state['preferences'] = {
-            'goals': goals,
-            'activities': activities,
-            'time_commitment': time_commitment
-        }
+
+        # Confirmation message
         st.write('Preferences saved!')
 
-    #Display saved preferences
-    if 'preferences' in st.session_state:
-        preferences = st.session_state['preferences']
-        st.write('Your preferences:')
-        st.write(preferences)
+        # Display link only if the activity is Meditation
+        if activity == 'Meditation':
+            url = "https://www.cdc.gov/sleep/about/index.html"
+            st.write("Check out this [meditation link](%s)" % url)
+            st.video("https://www.youtube.com/watch?v=DbDoBzGY3vo")
+
+        elif activity == 'Physical exercise':
+            url = "https://health.gov/moveyourway#adults"
+            st.write("Check out this [Pyhscial exercis link](%s)" % url)
+            st.video("https://www.youtube.com/watch?v=fLLScgWQcHc")
+
+        elif activity == 'Breathing exercises':
+            url = "https://www.va.gov/vetsinworkplace/docs/em_eap_exercise_breathing.asp"
+            st.write("Check out this [Breathing exercises link](%s)" % url)
+            st.video("https://www.youtube.com/watch?v=FJJazKtH_9I")
+
+    #save counts to file
+    checkup_account_data = pd.read_csv('pages\checkup.csv')
+    account_read = checkup_account_data.loc[(checkup_account_data['account-name'] == st.session_state['name']) & (checkup_account_data['account-username'] == st.session_state['username'])]
+
+    account_read['happy-count'] = st.session_state.counters['happy']
+    account_read['stress-count'] = st.session_state.counters['stress']
+    account_read['anxiety-count'] = st.session_state.counters['anxiety']
+    account_read['depressed-count'] = st.session_state.counters['depressed']
+
+    checkup_account_data.loc[(checkup_account_data['account-name'] == st.session_state['name']) & (checkup_account_data['account-username'] == st.session_state['username'])] = account_read
+
+    # Write the DataFrame to the CSV file
+    checkup_account_data.to_csv('pages\checkup.csv')
+    
