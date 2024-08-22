@@ -9,9 +9,10 @@ wide_space_default()
 
 # Authenticate user
 authenticator, config, config_path = authenticate_user()
+authentication_status = st.session_state.get('authentication_status')
 
 # Handle authentication status
-if st.session_state.get('authentication_status'):
+if authentication_status:
     authenticator.logout()
     st.write(f'Welcome *{st.session_state["name"]}*')
     st.title('Some content')
