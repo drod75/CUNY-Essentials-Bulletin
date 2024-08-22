@@ -1,4 +1,15 @@
+import sys
+import subprocess
+
+with open(r'requirements.txt', r) as file:
+    for line in file:
+        subprocess.check_call([sys.executable, '-m', 'pip', 'install', line])
+
+        reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
+        installed_packages = [r.decode().split('==')[0] for r in reqs.split()]
+
 import streamlit as st
+import streamlit_authenticator as stauth
 
 def wide_space_default():
     st.set_page_config(layout='wide')
