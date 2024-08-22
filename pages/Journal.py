@@ -22,6 +22,7 @@ authenticator.login()
 
 #authenticating
 if st.session_state['authentication_status']:
+    #WILL APPEAR IF LOGIN IS SUCCESSFUL, REDIRECT GOES HERE
     authenticator.logout()
     st.write(f'Welcome *{st.session_state["name"]}*')
     st.title('Some content')
