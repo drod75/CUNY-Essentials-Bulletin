@@ -1,5 +1,6 @@
 import streamlit as st
 from authentication import authenticate_user, register_user
+import yaml
 
 def wide_space_default():
     st.set_page_config(layout='wide')
