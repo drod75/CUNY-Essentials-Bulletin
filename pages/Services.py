@@ -60,7 +60,7 @@ with tab1:
          "Website": "https://guttman.cuny.edu/students/counseling-and-wellness-center/"}
     ])
 
-    display_resources("LaGuardia Community Collegee", [
+    display_resources("LaGuardia Community College", [
         {"Name": "The Wellness Center",
          "Email": "WellnessCenter@lagcc.cuny.edu",
          "Phone": "(718)-482-5471",

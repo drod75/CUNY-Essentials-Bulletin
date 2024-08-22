@@ -77,10 +77,10 @@ else:
     ad = pd.read_csv('pages\checkup.csv')
     account_read = ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username'])]
 
-    account_read['happy-count'] = st.session_state.counters['happy']
-    account_read['stress-count'] = st.session_state.counters['stress']
-    account_read['anxiety-count'] = st.session_state.counters['anxiety']
-    account_read['depressed-count'] = st.session_state.counters['depressed']
+    account_read['happy-count'] = int(st.session_state.counters['happy'])
+    account_read['stress-count'] = int(st.session_state.counters['stress'])
+    account_read['anxiety-count'] = int(st.session_state.counters['anxiety'])
+    account_read['depressed-count'] = int(st.session_state.counters['depressed'])
 
     ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username'])] = account_read
 
