@@ -1,7 +1,7 @@
 import sys
 import subprocess
 
-with open(r'requirements.txt', r) as file:
+with open(r'requirements.txt', 'r') as file:
     for line in file:
         subprocess.check_call([sys.executable, '-m', 'pip', 'install', line])
 
