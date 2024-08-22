@@ -1,7 +1,7 @@
 import streamlit as st
-from Bulletin import authentication_status
 
-if authentication_status is False:
-    st.warning('Please Login')
+#access text file step 1: account checking
+if not(st.session_state.get('authentication_status')):
+    st.warning('Please Login to use this feature')
 else:
-    st.text('In Progress')
+    st.text('WIP')
