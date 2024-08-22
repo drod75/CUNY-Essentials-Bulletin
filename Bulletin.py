@@ -1,25 +1,63 @@
-import sys
-import subprocess
-
-with open('requirements.txt', 'r') as file:
-    for line in file:
-        subprocess.check_call([sys.executable, '-m', 'pip', 'install', line])
-
-        reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
-        installed_packages = [r.decode().split('==')[0] for r in reqs.split()]
-
 import streamlit as st
-import streamlit_authenticator as stauth
+from authentication import authenticate_user, register_user
 
 def wide_space_default():
     st.set_page_config(layout='wide')
+
 wide_space_default()
 
-st.title('CUNY Essentials Bulletin')
-st.text('Welcome to the CUNY Essentials Bulletin! \nHere you will find the resources needed to contact help and document your feelings!')
-st.text('In this site there are two main pages:')
-st.markdown('* __Journal__ where you can document how you feel')
-st.markdown('* __Essentials__ where you can find the many mental health services CUNY and the government provides')
-st.text('With this we hope you make full use of our site and get any help you need, \nthere are people always here for you!')
-#just makeing sure this works
-# i hope this works now....
+# Authenticate user
+authenticator, config, config_path = authenticate_user()
+
+# Handle authentication status
+if st.session_state.get('authentication_status'):
+    authenticator.logout()
+    st.write(f'Welcome *{st.session_state["name"]}*')
+    st.title('Some content')
+
+    # Password reset functionality
+    try:
+        if authenticator.reset_password(st.session_state['username']):
+            st.success('Password modified successfully')
+    except Exception as e:
+        st.error(e)
+
+    # User registration
+    register_user(config, config_path)
+
+    # Forgot password functionality
+    try:
+        username_of_forgotten_password, email_of_forgotten_password, new_random_password = authenticator.forgot_password()
+        if username_of_forgotten_password:
+            st.success('New password to be sent securely')
+        elif username_of_forgotten_password is False:
+            st.error('Username not found')
+    except Exception as e:
+        st.error(e)
+
+    # Forgot username functionality
+    try:
+        username_of_forgotten_username, email_of_forgotten_username = authenticator.forgot_username()
+        if username_of_forgotten_username:
+            st.success('Username to be sent securely')
+        elif username_of_forgotten_username is False:
+            st.error('Email not found')
+    except Exception as e:
+        st.error(e)
+
+    # Update user details
+    try:
+        if authenticator.update_user_details(st.session_state['username']):
+            st.success('Entries updated successfully')
+    except Exception as e:
+        st.error(e)
+
+    # Save the updated configuration
+    with open(config_path, 'w') as file:
+        yaml.dump(config, file, default_flow_style=False)
+else:
+    st.warning('Please log in to access this content.')
+    
+    # Add a "Register" section
+    st.subheader("Don't have an account? Register here!")
+    register_user(config, config_path)
