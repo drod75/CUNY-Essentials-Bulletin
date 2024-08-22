@@ -84,18 +84,17 @@ def register_user(config, config_path):
                                     })
         checkup_account_data = checkup_account_data.append(account_df, ignore_index=True)
 
-        checkup_path = 'checkup_data\checkup.csv'
-        checkup_account_data.to_csv(os.path.join(checkup_path,r'checkup.csv'))
+        # Write the DataFrame to the CSV file
+        checkup_account_data.to_csv('pages\checkup.csv')
+    def send_email(to_email, subject, body):
+        sender_email = "estebanmesa29@gmail.com"
+        sender_password = "nonw doia uace ucra"
 
-def send_email(to_email, subject, body):
-    sender_email = "estebanmesa29@gmail.com"
-    sender_password = "nonw doia uace ucra"
-
-    message = MIMEMultipart()
-    message['From'] = sender_email
-    message['To'] = to_email
-    message['Subject'] = subject
-    message.attach(MIMEText(body, 'plain'))
+        message = MIMEMultipart()
+        message['From'] = sender_email
+        message['To'] = to_email
+        message['Subject'] = subject
+        message.attach(MIMEText(body, 'plain'))
 
     try:
         server = smtplib.SMTP('smtp.gmail.com', 587)
