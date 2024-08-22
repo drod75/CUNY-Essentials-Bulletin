@@ -75,17 +75,12 @@ def register_user(config, config_path):
 
         #add preliminary checkup values
         ad = pd.read_csv('pages\checkup_data\checkup.csv')
-        account_df = pd.DataFrame({'account-name':name,
-                                   'account-username':username,
-                                   'happy-count':0,
-                                   'stress-count':0,
-                                   'anxiety-count':0,
-                                   'depressed-count':0,
-                                    })
-        ad = ad.concat(account_df)
+        account_df = pd.DataFrame([[name,username,0,0,0,0]], columns=['account-name,account-username,happy-count,stress-count,anxiety-count,depressed-count'])
+        pd.concat([ad,account_df])
 
         # Write the DataFrame to the CSV file
         ad.to_csv('pages\checkup.csv')
+
     def send_email(to_email, subject, body):
         sender_email = "estebanmesa29@gmail.com"
         sender_password = "nonw doia uace ucra"
