@@ -6,7 +6,8 @@ credentials:
   usernames:
     dr:
       email: drodriguez1443@gmail.com
-      logged_in: false
+      failed_login_attempts: 0
+      logged_in: true
       name: dr
       password: $2b$12$qAunDAyHq3D0MSIHdgcFHOhQZrwszIkf09bMED2uv7rcvV9Jkg.CW
     drodriguez:
@@ -14,7 +15,7 @@ credentials:
       failed_login_attempts: 0
       logged_in: false
       name: David Rodriguez
-      password: abc
+      password: $2b$12$k4fJicOBb.W8cJAyYwhNqOF6oSN33ZqPyKmSRbZZjdVhF0RNYDZFu
 pre-authorized:
   emails:
   - dr507498@gmail.com
