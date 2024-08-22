@@ -1,15 +1,20 @@
 import streamlit as st
+import pandas as pd
+import os
 
 #access text file step 1: account checking
 if not(st.session_state.get('authentication_status')):
     st.markdown('# Please Login to use this feature')
 else:
     if 'counters' not in st.session_state:
+        #read checkup values, auto set to 0 for new accounts in authentication
+        checkup_account_data = pd.read_csv('pages\checkup_data\checkup.csv')
+        account_read = checkup_account_data.loc[(checkup_account_data['account-name'] == st.session_state['name']) & (checkup_account_data['account-username'] == st.session_state['username'])]
         st.session_state.counters = {
-            'happy': 0,
-            'stress': 0,
-            'anxiety': 0,
-            'depressed': 0
+            'happy': account_read['happy-count'],
+            'stress': account_read['stress-count'],
+            'anxiety': account_read['anxiety-count'],
+            'depressed': account_read['depressed-count']
         }
     if 'question_visible' not in st.session_state:
         st.session_state.question_visible = True
@@ -67,3 +72,18 @@ else:
         preferences = st.session_state['preferences']
         st.write('Your preferences:')
         st.write(preferences)
+
+    #save counts to file
+    checkup_account_data = pd.read_csv('pages\checkup_data\checkup.csv')
+    account_read = checkup_account_data.loc[(checkup_account_data['account-name'] == st.session_state['name']) & (checkup_account_data['account-username'] == st.session_state['username'])]
+
+    account_read['happy-count'] = st.session_state.counters['happy']
+    account_read['stress-count'] = st.session_state.counters['stress']
+    account_read['anxiety-count'] = st.session_state.counters['anxiety']
+    account_read['depressed-count'] = st.session_state.counters['depressed']
+
+    checkup_account_data.loc[(checkup_account_data['account-name'] == st.session_state['name']) & (checkup_account_data['account-username'] == st.session_state['username'])] = account_read
+    import os
+    path = 'pages\checkup_data\checkup.csv'
+    checkup_account_data.to_csv(os.path.join(path,r'checkup.csv'))
+    

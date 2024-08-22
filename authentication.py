@@ -6,6 +6,7 @@ from yaml.loader import SafeLoader
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import pandas as pd
 
 def authenticate_user():
     # Get the directory of the current script
@@ -71,6 +72,20 @@ def register_user(config, config_path):
         subject = "Welcome to CUNY Essentials Bulletin"
         body = get_welcome_email_body(name)
         send_email(email, subject, body)
+
+        #add preliminary checkup values
+        checkup_account_data = pd.read_csv('pages\checkup_data\checkup.csv')
+        account_df = pd.DataFrame({'account-name':name,
+                                   'account-username':username,
+                                   'happy-count':0,
+                                   'stress-count':0,
+                                   'anxiety-count':0,
+                                   'depressed-count':0,
+                                    })
+        checkup_account_data = checkup_account_data.append(account_df, ignore_index=True)
+
+        checkup_path = 'checkup_data\checkup.csv'
+        checkup_account_data.to_csv(os.path.join(checkup_path,r'checkup.csv'))
 
 def send_email(to_email, subject, body):
     sender_email = "estebanmesa29@gmail.com"
