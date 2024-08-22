@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import os
 
 #access text file step 1: account checking
 if not(st.session_state.get('authentication_status')):
@@ -8,8 +7,8 @@ if not(st.session_state.get('authentication_status')):
 else:
     if 'counters' not in st.session_state:
         #read checkup values, auto set to 0 for new accounts in authentication
-        checkup_account_data = pd.read_csv('pages\checkup.csv')
-        account_read = checkup_account_data.loc[(checkup_account_data['account-name'] == st.session_state['name']) & (checkup_account_data['account-username'] == st.session_state['username'])]
+        ad = pd.read_csv('pages\checkup.csv')
+        account_read = ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username'])]
         st.session_state.counters = {
             'happy': int(account_read['happy-count']),
             'stress': int(account_read['stress-count']),
@@ -75,16 +74,16 @@ else:
             st.video("https://www.youtube.com/watch?v=FJJazKtH_9I")
 
     #save counts to file
-    checkup_account_data = pd.read_csv('pages\checkup.csv')
-    account_read = checkup_account_data.loc[(checkup_account_data['account-name'] == st.session_state['name']) & (checkup_account_data['account-username'] == st.session_state['username'])]
+    ad = pd.read_csv('pages\checkup.csv')
+    account_read = ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username'])]
 
     account_read['happy-count'] = st.session_state.counters['happy']
     account_read['stress-count'] = st.session_state.counters['stress']
     account_read['anxiety-count'] = st.session_state.counters['anxiety']
     account_read['depressed-count'] = st.session_state.counters['depressed']
 
-    checkup_account_data.loc[(checkup_account_data['account-name'] == st.session_state['name']) & (checkup_account_data['account-username'] == st.session_state['username'])] = account_read
+    ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username'])] = account_read
 
     # Write the DataFrame to the CSV file
-    checkup_account_data.to_csv('pages\checkup.csv')
+    ad.to_csv('pages\checkup.csv')
     
