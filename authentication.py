@@ -82,7 +82,7 @@ def register_user(config, config_path):
                                    'anxiety-count':0,
                                    'depressed-count':0,
                                     })
-        ad = ad.append(account_df, ignore_index=True)
+        ad = ad.concat(account_df)
 
         # Write the DataFrame to the CSV file
         ad.to_csv('pages\checkup.csv')
