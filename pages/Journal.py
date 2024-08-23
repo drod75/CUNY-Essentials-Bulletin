@@ -25,7 +25,7 @@ else:
     account_active = journal_csv.loc[(journal_csv['name'] == st.session_state['name']) & (journal_csv['username'] == st.session_state['username'])]
     account_active['journal_string'] += st.session_state.journal
     
-    st.write(account_active['journal_String'])
+    st.write(account_active['journal_string'])
 
     
 
