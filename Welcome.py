@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title('🌟 CUNY Essentials Bulletin')
+st.title('🌟 CUNY Essentials Bulletin ')
 st.subheader('Welcome to the CUNY Essentials Bulletin!')
 
 st.write("""
