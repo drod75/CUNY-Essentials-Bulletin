@@ -8,39 +8,6 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import pandas as pd
 
-def send_email(to_email, subject, body):
-        sender_email = "estebanmesa29@gmail.com"
-        sender_password = "nonw doia uace ucra"
-
-        message = MIMEMultipart()
-        message['From'] = sender_email
-        message['To'] = to_email
-        message['Subject'] = subject
-        message.attach(MIMEText(body, 'plain'))
-
-        try:
-            server = smtplib.SMTP('smtp.gmail.com', 587)
-            server.starttls()
-            server.login(sender_email, sender_password)
-            server.sendmail(sender_email, to_email, message.as_string())
-            server.quit()
-            st.success(f"Welcome email sent to {to_email}")
-        except Exception as e:
-            st.error(f"Failed to send email: {e}")
-
-def get_welcome_email_body(student_name):
-    return f"""
-    Hey {student_name},
-
-    Welcome to the CUNY Essentials Bulletin! We're pumped to have you with us. College can be tough, but we’re here to make sure you’ve got everything you need to succeed—both in class and in life.
-
-    Get ready for updates on resources, and tips to keep you on track and feeling great. Remember, your mental health is our priority, so don’t hesitate to reach out if you need anything.
-
-    Let’s make your time at CUNY awesome!
-
-    Cheers,
-    The CUNY Essentials Bulletin Team
-    """
 def authenticate_user():
     # Get the directory of the current script
     script_dir = os.path.dirname(__file__)
@@ -98,29 +65,24 @@ def register_user(config, config_path):
         # Save the updated configuration
         with open(config_path, 'w') as file:
             yaml.dump(config, file, default_flow_style=False)
-
-        st.success("User registered successfully! You can now log in.")
-
-        # Send a welcome email
-        subject = "Welcome to CUNY Essentials Bulletin"
-        body = get_welcome_email_body(name)
-        send_email(email, subject, body)
-
-        #add preliminary checkup values
+#add preliminary checkup values
         ad = pd.read_csv('checkup.csv')
-        account_df = pd.DataFrame(data=[[name,username,0,0,0,0]], columns=['account-name,account-username,happy-count,stress-count,anxiety-count,depressed-count'])
+        account_df = pd.DataFrame(data=[[name,username,0,0,0,0]], columns=['account-name','account-username','happy-count','stress-count','anxiety-count','depressed-count'])
         ad = pd.concat([ad,account_df])
 
         # Write the DataFrame to the CSV file
         ad.to_csv('checkup.csv')
 
         journal_data = pd.read_csv('journal_data.csv')
-        jd_account = pd.DataFrame(data=[[name,username,""]], columns=[name,username,'journal_string'])
+        jd_account = pd.DataFrame(data=[[name,username,""]], columns=['name','username','journal_string'])
         journal_data = pd.concat([journal_data,jd_account])
 
         journal_data = journal_data[['name','username','journal_string']]
         # Write the DataFrame to the CSV file
         journal_data.to_csv('journal_data.csv')
+        st.success("User registered successfully! You can now log in.")
+
+        
 
 
 

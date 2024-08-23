@@ -4,10 +4,16 @@ cookie:
   name: hackathon
 credentials:
   usernames:
+    arn:
+      email: arn
+      failed_login_attempts: 0
+      logged_in: true
+      name: arn
+      password: $2b$12$j6l99OuCj8DQgZJEqDR//OL4dFWJ7Hzq/Q2zT.q7ptAv4k.GBW.jW
     arnav:
       email: arnav.deepaware@gmail.com
       failed_login_attempts: 0
-      logged_in: true
+      logged_in: false
       name: arnav
       password: $2b$12$EaYKw9I7kyuf1qHz/M4MruThAV6.Ju.uL11L3mV5ABjeXJvxipO8O
     arnavdeepaware:
