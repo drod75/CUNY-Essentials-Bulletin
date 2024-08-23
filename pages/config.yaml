@@ -2,6 +2,29 @@ cookie:
   expiry_days: 30
   key: 1010abczyx1010
   name: hackathon
+<<<<<<< HEAD
+credentials:
+  usernames:
+    arnavdeepaware:
+      email: arnav.deepaware@gmail.com
+      failed_login_attempts: 0
+      logged_in: true
+      name: Arnav Deepaware
+      password: $2b$12$qAunDAyHq3D0MSIHdgcFHOhQZrwszIkf09bMED2uv7rcvV9Jkg.CW
+    dr:
+      email: drodriguez1443@gmail.com
+      failed_login_attempts: 0
+      logged_in: true
+      name: dr
+      password: $2b$12$qAunDAyHq3D0MSIHdgcFHOhQZrwszIkf09bMED2uv7rcvV9Jkg.CW
+    drodriguez:
+      email: dr507498@gmail.com
+      failed_login_attempts: 0
+      logged_in: false
+      name: David Rodriguez
+      password: $2b$12$k4fJicOBb.W8cJAyYwhNqOF6oSN33ZqPyKmSRbZZjdVhF0RNYDZFu
+=======
+>>>>>>> 9de8cbf9d1c4fd0556bc6ce75dde1dc63ad1066e
 pre-authorized:
   emails:
   - dr507498@gmail.com
