@@ -87,8 +87,6 @@ else:
 
     ad.update(account_read,overwrite=True)
     ad = ad[['account-name','account-username','happy-count','stress-count','anxiety-count','depressed-count']]
-
-    print(ad)
     # Write the DataFrame to the CSV file
     ad.to_csv('pages\checkup.csv',index=False)
     
