@@ -9,7 +9,6 @@ else:
         #read checkup values, auto set to 0 for new accounts in authentication
         ad = pd.read_csv('checkup.csv')
         account_read = ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username'])]
-        print(account_read)
         st.session_state.counters = {
             'happy': int(),
             'stress': int(account_read['stress-count']),
