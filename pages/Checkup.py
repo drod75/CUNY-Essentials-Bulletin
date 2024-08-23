@@ -9,8 +9,9 @@ else:
         #read checkup values, auto set to 0 for new accounts in authentication
         ad = pd.read_csv('checkup.csv')
         account_read = ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username'])]
+        print(account_read)
         st.session_state.counters = {
-            'happy': int(account_read['happy-count']),
+            'happy': int(),
             'stress': int(account_read['stress-count']),
             'anxiety': int(account_read['anxiety-count']),
             'depressed': int(account_read['depressed-count'])
@@ -74,7 +75,7 @@ else:
             st.video("https://www.youtube.com/watch?v=FJJazKtH_9I")
 
     #save counts to file
-    ad = pd.read_csv('pages\checkup.csv')
+    ad = pd.read_csv('checkup.csv')
     account_read = ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username'])]
 
     account_read['happy-count'] = int(st.session_state.counters['happy'])
