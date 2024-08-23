@@ -82,8 +82,13 @@ else:
     account_read['anxiety-count'] = int(st.session_state.counters['anxiety'])
     account_read['depressed-count'] = int(st.session_state.counters['depressed'])
 
-    ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username'])] = account_read
+    #account_read = account_read['account-name','account-username','happy-count','stress-count','anxiety-count','depressed-count']
+    account_read = account_read[['account-name','account-username','happy-count','stress-count','anxiety-count','depressed-count']]
 
+    ad.update(account_read,overwrite=True)
+    ad = ad[['account-name','account-username','happy-count','stress-count','anxiety-count','depressed-count']]
+
+    print(ad)
     # Write the DataFrame to the CSV file
-    ad.to_csv('pages\checkup.csv')
+    ad.to_csv('pages\checkup.csv',index=False)
     
