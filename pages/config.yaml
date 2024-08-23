@@ -10,6 +10,11 @@ credentials:
       logged_in: true
       name: Arnav Deepaware
       password: $2b$12$qAunDAyHq3D0MSIHdgcFHOhQZrwszIkf09bMED2uv7rcvV9Jkg.CW
+    dp:
+      email: deeppatel0306@gmail.com
+      logged_in: true
+      name: Deep
+      password: $2b$12$Sm2sSLKTVq7V8sFsifDh0ec0h7y8IbjYera3qRXVxHMoFb3VA0mdG
     dr:
       email: drodriguez1443@gmail.com
       failed_login_attempts: 0
