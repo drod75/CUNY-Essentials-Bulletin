@@ -7,6 +7,7 @@ if not(st.session_state.get('authentication_status')):
 else:
     if 'counters' not in st.session_state:
         #db read values
+        db = client["CUNYbulletin"]
         users_emotions_scores = db['users-emotion-scores']
         account_active = users_emotions_scores.find_one({"username": st.session_state['username']})
         st.session_state.counters['happy'] = account_active['happy-count']

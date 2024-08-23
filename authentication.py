@@ -9,7 +9,7 @@ from email.mime.multipart import MIMEMultipart
 # MongoDB connection setup
 def init_mongo_client():
     uri = "mongodb+srv://estebanmesa57:Brooklynishome1@cluster0.exl6d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-    client = MongoClient(uri, server_api=ServerApi('1'))
+    client = MongoClient(uri, server_api=ServerApi('1'),document_class=dict)
     try:
         client.admin.command('ping')
         print("Pinged your deployment. You successfully connected to MongoDB!")
@@ -33,19 +33,12 @@ def authenticate_user():
     if st.button("Login"):
         user = users_collection.find_one({"username": username})
         hashed_passwords = (stauth.Hasher([password]))
-
-        authenticator = stauth.Authenticate(users_collection,
-    cookie_name='hackathon', cookie_key='1010abczyx1010', cookie_expiry_days=30)
-        
-        name, authentication_status, username = authenticator.login('Login', 'main')
-
-        if authentication_status and hashed_passwords.check_pw(password, user['password']):
+        if user and hashed_passwords.check_pw(password, user['password']):
             st.session_state['name'] = user['name']
             st.session_state['username'] = username
             st.session_state['authentication_status'] = True
         else:
             st.error('Username/password is incorrect')
-        return authenticator
 
 # User registration
 def register_new_user():

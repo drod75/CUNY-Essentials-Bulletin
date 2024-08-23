@@ -6,13 +6,12 @@ from authentication import authenticate_user, register_new_user
 st.set_page_config(layout='wide')
 
 # Authenticate user
-authenticator = authenticate_user()
+authenticate_user()
 
 # Handle authentication status
 if st.session_state.get('authentication_status'):
     st.write(f'Welcome *{st.session_state["name"]}*')
     st.title('Some content')
-    authenticator.logout()
     # Password reset functionality
     if st.button("Reset Password"):
         new_password = st.text_input("New Password", type="password")
