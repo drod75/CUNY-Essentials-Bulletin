@@ -91,15 +91,15 @@ def register_user(config, config_path):
         message['Subject'] = subject
         message.attach(MIMEText(body, 'plain'))
 
-    try:
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()
-        server.login(sender_email, sender_password)
-        server.sendmail(sender_email, to_email, message.as_string())
-        server.quit()
-        st.success(f"Welcome email sent to {to_email}")
-    except Exception as e:
-        st.error(f"Failed to send email: {e}")
+        try:
+            server = smtplib.SMTP('smtp.gmail.com', 587)
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, to_email, message.as_string())
+            server.quit()
+            st.success(f"Welcome email sent to {to_email}")
+        except Exception as e:
+            st.error(f"Failed to send email: {e}")
 
 def get_welcome_email_body(student_name):
     return f"""
