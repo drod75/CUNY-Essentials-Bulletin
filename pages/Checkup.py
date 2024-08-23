@@ -9,11 +9,15 @@ else:
         #read checkup values, auto set to 0 for new accounts in authentication
         ad = pd.read_csv('checkup.csv')
         account_read = ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username'])]
+        happy = account_read['happy-count']
+        stress = account_read['stress-count']
+        anxiety = account_read['anxiety-count']
+        depressed = account_read['depressed-count']
         st.session_state.counters = {
-            'happy': int(),
-            'stress': int(account_read['stress-count']),
-            'anxiety': int(account_read['anxiety-count']),
-            'depressed': int(account_read['depressed-count'])
+            'happy': happy,
+            'stress': stress,
+            'anxiety': anxiety,
+            'depressed': depressed
         }
     if 'question_visible' not in st.session_state:
         st.session_state.question_visible = True
@@ -75,17 +79,11 @@ else:
 
     #save counts to file
     ad = pd.read_csv('checkup.csv')
-    account_read = ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username'])]
+    ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username']), 'happy-count'] = int(st.session_state.counters['happy'])
+    ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username']), 'stress-count'] = int(st.session_state.counters['stress'])
+    ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username']), 'anxiety-count'] = int(st.session_state.counters['anxiety'])
+    ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username']), 'depressed-count'] = int(st.session_state.counters['depressed'])
 
-    account_read['happy-count'] = int(st.session_state.counters['happy'])
-    account_read['stress-count'] = int(st.session_state.counters['stress'])
-    account_read['anxiety-count'] = int(st.session_state.counters['anxiety'])
-    account_read['depressed-count'] = int(st.session_state.counters['depressed'])
-
-    #account_read = account_read['account-name','account-username','happy-count','stress-count','anxiety-count','depressed-count']
-    account_read = account_read[['account-name','account-username','happy-count','stress-count','anxiety-count','depressed-count']]
-
-    ad.update(account_read,overwrite=True)
     ad = ad[['account-name','account-username','happy-count','stress-count','anxiety-count','depressed-count']]
     # Write the DataFrame to the CSV file
     ad.to_csv('checkup.csv',index=False)

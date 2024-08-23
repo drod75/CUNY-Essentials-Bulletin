@@ -1,5 +1,4 @@
 account-name,account-username,happy-count,stress-count,anxiety-count,depressed-count
 dr,dr,0,0,1,8
-David Rodriguez,dr,0,0,0,0
-Arnav Deepaware, arnavdeepaware,0,0,0,0
-arn,arn,0,0,2,0
+test,test,0,0,0,1
+t,t,2,0,0,0

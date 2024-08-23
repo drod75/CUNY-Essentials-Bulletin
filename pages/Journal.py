@@ -8,34 +8,31 @@ if not(st.session_state.get('authentication_status')):
 else:
     st.set_page_config(layout="wide")
     if 'journal' not in st.session_state:
-        journal_csv = pd.read_csv('journal_data.csv')
-        account_active = journal_csv.loc[(journal_csv['name'] == st.session_state['name']) & (journal_csv['username'] == st.session_state['username'])]    
-        st.session_state.journal = account_active['journal_string']
+         st.session_state.journal = ''
+
     user_input = st.text_area("Write your Journal below", height=500)
 
     if st.button("Save Journal"):
         if user_input:
-            st.session_state.journal += f"{user_input}\n\n" 
-            journal_csv = pd.read_csv('journal_data.csv')
-            account_active = journal_csv.loc[(journal_csv['name'] == st.session_state['name']) & (journal_csv['username'] == st.session_state['username'])]
-            account_active['journal_string'] += st.session_state.journal
-            
-            
+            st.session_state.journal += f"{str(user_input)}\n\n"
 
+            #load dataframe to write
+            df = pd.read_csv('journal_data.csv')
+            ap_check = df.loc[(df['name'] == st.session_state['name']) & (df['username'] == st.session_state['username'])]
+            journal_saved = str(ap_check['journal_string'])
+            journal_saved = journal_saved + str(st.session_state.journal)
             
+            st.write("### Saved Journal:")
+            st.write(str(journal_saved))
 
-            account_active = account_active[['name','username','journal_string']]
-            journal_csv.update(account_active,overwrite=True)
-            journal_csv = journal_csv[['name','username','journal_string']]    
-            # Write the DataFrame to the CSV file
-            journal_csv.to_csv('journal_data.csv',index=False)
+            #save data
+            df.loc[(df['name'] == st.session_state['name']) & (df['username'] == st.session_state['username']), 'journal_string'] = str(st.session_state.journal)
+            df.to_csv('journal_data.csv', index=False)
 
-            st.write(st.session_state.journal)
             st.success("Journal saved successfully!")
         else:
             st.warning("You have not written anything to save.")
     # Show the saved journal content
-    st.write("### Saved Journal:")
     text = st.empty()
     
     

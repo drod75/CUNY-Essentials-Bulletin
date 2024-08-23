@@ -46,12 +46,12 @@ def authenticate_user():
 def register_user(config, config_path):
     # Collect user details
     st.write("Register New User")
-    email = st.text_input("Email")
-    username = st.text_input("Username")
-    name = st.text_input("Name")
-    password = st.text_input("Password", type="password")
+    email = st.text_input("Email",key=100)
+    username = st.text_input("Username",key=101)
+    name = st.text_input("Name",key=102)
+    password = st.text_input("Password", type="password",key=103)
 
-    if st.button("Register"):
+    if st.button("Register",key=104):
         # Hash the password
         hashed_password = stauth.Hasher([password]).generate()[0]
 
@@ -65,21 +65,20 @@ def register_user(config, config_path):
         # Save the updated configuration
         with open(config_path, 'w') as file:
             yaml.dump(config, file, default_flow_style=False)
-#add preliminary checkup values
+    #add preliminary  values
+
+        #add checkup row
         ad = pd.read_csv('checkup.csv')
         account_df = pd.DataFrame(data=[[name,username,0,0,0,0]], columns=['account-name','account-username','happy-count','stress-count','anxiety-count','depressed-count'])
-        ad = pd.concat([ad,account_df])
+        ad = pd.concat([ad,account_df],ignore_index=True)
+        ad.to_csv('checkup.csv',index=False)
 
-        # Write the DataFrame to the CSV file
-        ad.to_csv('checkup.csv')
-
+        #add journal row
         journal_data = pd.read_csv('journal_data.csv')
-        jd_account = pd.DataFrame(data=[[name,username,""]], columns=['name','username','journal_string'])
-        journal_data = pd.concat([journal_data,jd_account])
-
-        journal_data = journal_data[['name','username','journal_string']]
-        # Write the DataFrame to the CSV file
-        journal_data.to_csv('journal_data.csv')
+        jd_account = pd.DataFrame(data=[[name,username,"Welcome!\n"]], columns=['name','username','journal_string'])
+        journal_data = pd.concat([journal_data,jd_account],ignore_index=True)
+        journal_data.to_csv('journal_data.csv',index=False)
+        
         st.success("User registered successfully! You can now log in.")
 
         

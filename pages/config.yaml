@@ -4,47 +4,24 @@ cookie:
   name: hackathon
 credentials:
   usernames:
-    arn:
-      email: arn
-      failed_login_attempts: 0
-      logged_in: true
-      name: arn
-      password: $2b$12$j6l99OuCj8DQgZJEqDR//OL4dFWJ7Hzq/Q2zT.q7ptAv4k.GBW.jW
-    arnav:
-      email: arnav.deepaware@gmail.com
-      failed_login_attempts: 0
-      logged_in: false
-      name: arnav
-      password: $2b$12$EaYKw9I7kyuf1qHz/M4MruThAV6.Ju.uL11L3mV5ABjeXJvxipO8O
-    arnavdeepaware:
-      email: arnav.deepaware@gmail.com
-      failed_login_attempts: 0
-      logged_in: true
-      name: Arnav Deepaware
-      password: $2b$12$qAunDAyHq3D0MSIHdgcFHOhQZrwszIkf09bMED2uv7rcvV9Jkg.CW
-    dp:
-      email: deeppatel0306@gmail.com
-      logged_in: false
-      name: Deep
-      password: $2b$12$Sm2sSLKTVq7V8sFsifDh0ec0h7y8IbjYera3qRXVxHMoFb3VA0mdG
     dr:
       email: drodriguez1443@gmail.com
       failed_login_attempts: 0
       logged_in: false
       name: dr
       password: $2b$12$qAunDAyHq3D0MSIHdgcFHOhQZrwszIkf09bMED2uv7rcvV9Jkg.CW
-    drodriguez:
-      email: dr507498@gmail.com
+    t:
+      email: t
       failed_login_attempts: 0
-      logged_in: false
-      name: David Rodriguez
-      password: $2b$12$k4fJicOBb.W8cJAyYwhNqOF6oSN33ZqPyKmSRbZZjdVhF0RNYDZFu
+      logged_in: true
+      name: t
+      password: $2b$12$vBkz1rWVDvPsUVHmolgFB.3ryqUOL5yyrHHai4WYyGYUMsoPj5z6q
     test:
       email: test
       failed_login_attempts: 0
-      logged_in: true
+      logged_in: false
       name: test
-      password: $2b$12$gf7f.87mRF6y.kgGXdkcZOGDx1QVsNcILdc7xCejkh1FyBJ95HHBq
+      password: $2b$12$OOZsHlvqRUmJB8vyb3o7XONrVBpSDMMMrc6/.ykgz7agGIihL3TSe
 pre-authorized:
   emails:
   - dr507498@gmail.com
