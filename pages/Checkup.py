@@ -14,10 +14,10 @@ else:
         anxiety = account_read['anxiety-count']
         depressed = account_read['depressed-count']
         st.session_state.counters = {
-            'happy': happy,
-            'stress': stress,
-            'anxiety': anxiety,
-            'depressed': depressed
+            'happy': int(happy),
+            'stress': int(stress),
+            'anxiety': int(anxiety),
+            'depressed': int(depressed)
         }
     if 'question_visible' not in st.session_state:
         st.session_state.question_visible = True
