@@ -24,7 +24,7 @@ credentials:
       password: $2b$12$qAunDAyHq3D0MSIHdgcFHOhQZrwszIkf09bMED2uv7rcvV9Jkg.CW
     dp:
       email: deeppatel0306@gmail.com
-      logged_in: true
+      logged_in: false
       name: Deep
       password: $2b$12$Sm2sSLKTVq7V8sFsifDh0ec0h7y8IbjYera3qRXVxHMoFb3VA0mdG
     dr:
@@ -39,6 +39,12 @@ credentials:
       logged_in: false
       name: David Rodriguez
       password: $2b$12$k4fJicOBb.W8cJAyYwhNqOF6oSN33ZqPyKmSRbZZjdVhF0RNYDZFu
+    test:
+      email: test
+      failed_login_attempts: 0
+      logged_in: true
+      name: test
+      password: $2b$12$gf7f.87mRF6y.kgGXdkcZOGDx1QVsNcILdc7xCejkh1FyBJ95HHBq
 pre-authorized:
   emails:
   - dr507498@gmail.com
