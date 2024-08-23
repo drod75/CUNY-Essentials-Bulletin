@@ -2,7 +2,6 @@ cookie:
   expiry_days: 30
   key: 1010abczyx1010
   name: hackathon
-<<<<<<< HEAD
 credentials:
   usernames:
     arnavdeepaware:
@@ -23,8 +22,6 @@ credentials:
       logged_in: false
       name: David Rodriguez
       password: $2b$12$k4fJicOBb.W8cJAyYwhNqOF6oSN33ZqPyKmSRbZZjdVhF0RNYDZFu
-=======
->>>>>>> 9de8cbf9d1c4fd0556bc6ce75dde1dc63ad1066e
 pre-authorized:
   emails:
   - dr507498@gmail.com
