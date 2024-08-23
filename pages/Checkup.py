@@ -7,7 +7,7 @@ if not(st.session_state.get('authentication_status')):
 else:
     if 'counters' not in st.session_state:
         #read checkup values, auto set to 0 for new accounts in authentication
-        ad = pd.read_csv('pages\checkup.csv')
+        ad = pd.read_csv('checkup.csv')
         account_read = ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username'])]
         st.session_state.counters = {
             'happy': int(account_read['happy-count']),
@@ -88,5 +88,5 @@ else:
     ad.update(account_read,overwrite=True)
     ad = ad[['account-name','account-username','happy-count','stress-count','anxiety-count','depressed-count']]
     # Write the DataFrame to the CSV file
-    ad.to_csv('pages\checkup.csv',index=False)
+    ad.to_csv('checkup.csv',index=False)
     

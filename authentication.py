@@ -74,12 +74,20 @@ def register_user(config, config_path):
         send_email(email, subject, body)
 
         #add preliminary checkup values
-        ad = pd.read_csv('pages\checkup_data\checkup.csv')
+        ad = pd.read_csv('checkup.csv')
         account_df = pd.DataFrame(data=[[name,username,0,0,0,0]], columns=['account-name,account-username,happy-count,stress-count,anxiety-count,depressed-count'])
         ad = pd.concat([ad,account_df])
 
         # Write the DataFrame to the CSV file
         ad.to_csv('pages\checkup.csv')
+
+        journal_data = pd.read_csv('journal_Data.csv')
+        jd_account = pd.DataFrame(data=[[name,username,""]], columns=[name,username,''])
+        journal_data = pd.concat([journal_data,jd_account])
+
+        journal_data = journal_data[['name','username','journal_string']]
+        # Write the DataFrame to the CSV file
+        journal_data.to_csv('checkup.csv')
 
     def send_email(to_email, subject, body):
         sender_email = "estebanmesa29@gmail.com"
