@@ -23,7 +23,7 @@ else:
             journal_saved = journal_saved + str(st.session_state.journal)
             
             st.write("### Saved Journal:")
-            st.write(str(journal_saved))
+            st.write(st.session_state.journal)
 
             #save data
             df.loc[(df['name'] == st.session_state['name']) & (df['username'] == st.session_state['username']), 'journal_string'] = str(st.session_state.journal)

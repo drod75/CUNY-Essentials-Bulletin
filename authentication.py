@@ -106,7 +106,7 @@ if st.session_state.get('authentication_status'):
 
     # Forgot password functionality
     try:
-        username_of_forgotten_password, email_of_forgotten_password, new_random_password = authenticator.forgot_password()
+        username_of_forgotten_password, email_of_forgotten_password, new_random_password = authenticator.forgot_password(key=1000)
         if username_of_forgotten_password:
             st.success('New password to be sent securely')
         elif username_of_forgotten_password is False:
