@@ -8,7 +8,7 @@ from email.mime.multipart import MIMEMultipart
 
 # MongoDB connection setup
 def init_mongo_client():
-    uri = "mongodb+srv://estebanmesa57:nothxxOxTzH0gZby@cluster0.exl6d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    uri = "mongodb+srv://estebanmesa57:Brooklynishome1@cluster0.exl6d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
     client = MongoClient(uri, server_api=ServerApi('1'))
     try:
         client.admin.command('ping')
@@ -20,7 +20,7 @@ def init_mongo_client():
 
 client = init_mongo_client()
 if client:
-    db = client["ESTEBAN'S ORG"]  # Rname of the DB
+    db = client["CUNYbulletin"]  # Rname of the DB
     users_collection = db['users']
 else:
     st.error("Failed to connect to the database. Please check your credentials.")

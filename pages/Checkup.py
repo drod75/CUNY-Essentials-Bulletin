@@ -1,19 +1,25 @@
 import streamlit as st
 import pandas as pd
+from authentication import db
 
 #access text file step 1: account checking
 if not(st.session_state.get('authentication_status')):
     st.markdown('# Please Login to use this feature')
 else:
     if 'counters' not in st.session_state:
-        #read checkup values, auto set to 0 for new accounts in authentication
-        ad = pd.read_csv('pages\checkup.csv')
-        account_read = ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username'])]
+        #db read values
+        users_emotions_scores = db['users-emotion-scores']
+        account_active = users_emotions_scores.find_one({"username": st.session_state['username']})
+        st.session_state.counters['happy'] = account_active['happy-count']
+        st.session_state.counters['stress'] = account_active['stress-count']
+        st.session_state.counters['anxiety'] = account_active['anxiety-count']
+        st.session_state.counters['depressed'] = account_active['depressed-count']
+
         st.session_state.counters = {
-            'happy': int(account_read['happy-count']),
-            'stress': int(account_read['stress-count']),
-            'anxiety': int(account_read['anxiety-count']),
-            'depressed': int(account_read['depressed-count'])
+            'happy': st.session_state.counters['happy'],
+            'stress': st.session_state.counters['stress'],
+            'anxiety': st.session_state.counters['anxiety'],
+            'depressed': st.session_state.counters['depressed']
         }
     if 'question_visible' not in st.session_state:
         st.session_state.question_visible = True
@@ -73,17 +79,10 @@ else:
             st.write("Check out this [Breathing exercises link](%s)" % url)
             st.video("https://www.youtube.com/watch?v=FJJazKtH_9I")
 
-    #save counts to file
-    ad = pd.read_csv('pages\checkup.csv')
-    account_read = ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username'])]
+    #db update
+    users_emotions_scores.update_one({"username": st.session_state['username']}, {"$set": {"happy-count": st.session_state.counters['happy']}})
+    users_emotions_scores.update_one({"username": st.session_state['username']}, {"$set": {"stress-count": st.session_state.counters['stress']}})
+    users_emotions_scores.update_one({"username": st.session_state['username']}, {"$set": {"anxiety-count": st.session_state.counters['anxiety']}})
+    users_emotions_scores.update_one({"username": st.session_state['username']}, {"$set": {"depressed-count": st.session_state.counters['depressed']}})
 
-    account_read['happy-count'] = int(st.session_state.counters['happy'])
-    account_read['stress-count'] = int(st.session_state.counters['stress'])
-    account_read['anxiety-count'] = int(st.session_state.counters['anxiety'])
-    account_read['depressed-count'] = int(st.session_state.counters['depressed'])
-
-    ad.loc[(ad['account-name'] == st.session_state['name']) & (ad['account-username'] == st.session_state['username'])] = account_read
-
-    # Write the DataFrame to the CSV file
-    ad.to_csv('pages\checkup.csv')
     
