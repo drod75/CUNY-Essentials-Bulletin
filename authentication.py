@@ -28,29 +28,47 @@ else:
 # User authentication
 def authenticate_user():
     username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
+    password = st.text_input("Password", type="password")    
 
     if st.button("Login"):
         user = users_collection.find_one({"username": username})
-        if user and stauth.Hasher([password]).verify(password, user['password']):
+        hashed_passwords = (stauth.Hasher([password]))
+
+        authenticator = stauth.Authenticate(users_collection,
+    cookie_name='hackathon', cookie_key='1010abczyx1010', cookie_expiry_days=30)
+        
+        name, authentication_status, username = authenticator.login('Login', 'main')
+
+        if authentication_status and hashed_passwords.check_pw(password, user['password']):
             st.session_state['name'] = user['name']
             st.session_state['username'] = username
             st.session_state['authentication_status'] = True
         else:
             st.error('Username/password is incorrect')
+        return authenticator
 
 # User registration
 def register_new_user():
     st.write("Register New User")
-    email = st.text_input("Email")
-    username = st.text_input("Username")
-    name = st.text_input("Name")
-    password = st.text_input("Password", type="password")
+    email = st.text_input("Email",key=0)
+    username = st.text_input("Username",key=1)
+    name = st.text_input("Name",key=2)
+    password = st.text_input("Password", type="password",key=3)
 
     if st.button("Register"):
         hashed_password = stauth.Hasher([password]).generate()[0]
         user = {"name": name, "username": username, "email": email, "password": hashed_password}
         users_collection.insert_one(user)
+        users_emotions_scores = db['users-emotions-scores']
+        user_emotions = {
+            'name':name,
+            'username':username,
+            'happy-count':0,
+            'stress-count':0,
+            'anxiety-count':0,
+            'depressed-count':0
+        }
+        users_emotions_scores.insert_one(user_emotions)
         st.success("User registered successfully! You can now log in.")
         send_welcome_email(email, name)
 

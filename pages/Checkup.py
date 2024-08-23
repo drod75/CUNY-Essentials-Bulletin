@@ -1,6 +1,5 @@
 import streamlit as st
-import pandas as pd
-from authentication import db
+from authentication import *
 
 #access text file step 1: account checking
 if not(st.session_state.get('authentication_status')):
