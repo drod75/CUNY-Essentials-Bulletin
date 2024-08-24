@@ -26,7 +26,7 @@ else:
             st.write(str(st.session_state.journal))
 
             #save data
-            df.loc[(df['name'] == st.session_state['name']) & (df['username'] == st.session_state['username']), 'journal_string'] = str(journal_saved)
+            df.loc[(df['name'] == st.session_state['name']) & (df['username'] == st.session_state['username']), 'journal_string'] = st.session_state.journal
             df.to_csv('journal_data.csv', index=False)
 
             st.success("Journal saved successfully!")
