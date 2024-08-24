@@ -29,7 +29,7 @@ def authenticate_user():
     )
 
     # Perform user login with the correct arguments
-    name, authentication_status, username = authenticator.login(location='main')
+    name, authentication_status, username = authenticator.login('main',max_concurrent_users=1)
 
     # Handle session state
     if authentication_status:
