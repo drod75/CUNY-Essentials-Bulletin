@@ -23,10 +23,10 @@ else:
             journal_saved = journal_saved + str(st.session_state.journal)
             
             st.write("### Saved Journal:")
-            st.write(st.session_state.journal)
+            st.write(str(st.session_state.journal))
 
             #save data
-            df.loc[(df['name'] == st.session_state['name']) & (df['username'] == st.session_state['username']), 'journal_string'] = str(st.session_state.journal)
+            df.loc[(df['name'] == st.session_state['name']) & (df['username'] == st.session_state['username']), 'journal_string'] = str(journal_saved)
             df.to_csv('journal_data.csv', index=False)
 
             st.success("Journal saved successfully!")
